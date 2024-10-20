@@ -17,5 +17,5 @@ public class Vehicle {
     @Id
     String number_plate;
     String vehicle_name;
-    VehicleType vehicleType;
+    String vehicleType;
 }

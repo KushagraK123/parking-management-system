@@ -15,7 +15,6 @@ import lombok.Setter;
 public class ParkingSpot {
     @Id
     Integer slot_id;
-    Integer vechicle_capacity;
+    Integer vehicle_capacity;
     Integer floor;
-    Boolean is_used;
 }
