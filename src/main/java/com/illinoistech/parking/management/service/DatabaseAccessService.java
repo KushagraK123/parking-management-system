@@ -3,8 +3,12 @@ package com.illinoistech.parking.management.service;
 
 import com.illinoistech.parking.management.entity.*;
 import com.illinoistech.parking.management.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,12 +113,37 @@ public class DatabaseAccessService {
         return slotAssignmentRepository.save(slotAssignment);
     }
 
+    @Transactional
     public void releaseSpot(Integer slotAssignmentId) throws Exception {
-        if(slotAssignmentRepository.existsById(slotAssignmentId)) {
+        //TODO Make this as a transaction;
+        if(slotAssignmentRepository.findById(slotAssignmentId).isPresent()) {
+            SlotAssignment slotAssignment = slotAssignmentRepository.findById(slotAssignmentId).get();
+            Vehicle vehicle = vehicleRepository.findById(slotAssignment.getNumber_plate()).orElseThrow();
+            VehicleType vehicleType = vehicleTypeRepository.findById(vehicle.getVehicleType()).orElseThrow();
+            Invoice currInvoice =  Invoice.builder()
+                    .cust_id(slotAssignment.getCust_id())
+                    .amount(calculateBillingAmount(slotAssignment.getTimeIssued(),
+                            vehicleType.getHourly_rate()))
+                    .number_plate(slotAssignment.getNumber_plate())
+                    .timestamp(Timestamp.from(Instant.now()))
+                    .build();
+            invoiceRepository.save(currInvoice);
             slotAssignmentRepository.deleteById(slotAssignmentId);
         } else {
             throw new Exception("Slot Not Assigned");
         }
+    }
+
+    private Double calculateBillingAmount(Timestamp timeIssued, Double hourly_rate) {
+        int hours = getHours(timeIssued);
+        return hourly_rate*(double)hours;
+    }
+
+    private int getHours(Timestamp timeIssued) {
+        Timestamp currTime = Timestamp.from(Instant.now());
+        long millis = currTime.getTime() - timeIssued.getTime();
+        double divisor = 1000 * 60 * 60;
+        return (int) Math.ceil((double)millis/ divisor);
     }
 
     public List<Invoice> getAllInvoices() {

@@ -2,11 +2,10 @@ package com.illinoistech.parking.management.entity;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
@@ -14,10 +13,12 @@ import java.sql.Timestamp;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity(name = "invoice")
 public class Invoice {
 
-    @Id
+
+    @Id @GeneratedValue(strategy= GenerationType.IDENTITY)
     Integer invoice_id;
     Integer cust_id;
     String number_plate;
