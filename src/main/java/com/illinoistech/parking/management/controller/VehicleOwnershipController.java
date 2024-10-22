@@ -22,4 +22,6 @@ public class VehicleOwnershipController {
     public List<VehicleOwnership> getVehicleOwnershipByCustomerId(Integer cust_id) {
         return databaseAccessService.findVehicleOwnershipByCustId(cust_id);
     }
+
+
 }

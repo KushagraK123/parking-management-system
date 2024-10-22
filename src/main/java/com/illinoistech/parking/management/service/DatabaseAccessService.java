@@ -43,8 +43,26 @@ public class DatabaseAccessService {
         return customers;
     }
 
-    public Customer addNewCustomer(Customer customer) {
-        return customerRepository.save(customer);
+    public Customer addNewCustomer(Customer customer) throws Exception {
+        if(!customerRepository.existsById(customer.getCust_id())) {
+            return customerRepository.save(customer);
+        }else {
+            throw new Exception("The Customer already exists");
+        }
+
+    }
+
+    public Customer updateCustomer(Customer customer) throws Exception {
+        if(customerRepository.existsById(customer.getCust_id())) {
+            return customerRepository.save(customer);
+        }else {
+            throw new Exception("The Customer does not exist");
+        }
+
+    }
+
+    public void deleteCustomer(Integer cust_id) {
+        customerRepository.deleteById(cust_id);
     }
 
     public List<Employee> getAllEmployees() {
@@ -53,8 +71,24 @@ public class DatabaseAccessService {
         return employees;
     }
 
-    public Employee addNewEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+    public Employee addNewEmployee(Employee employee) throws Exception {
+        if(!employeeRepository.existsById(employee.getE_id())) {
+            return employeeRepository.save(employee);
+        } else {
+            throw new Exception("Employee already exists");
+        }
+    }
+
+    public Employee updateEmployee(Employee employee) throws Exception {
+        if(employeeRepository.existsById(employee.getE_id())) {
+            return employeeRepository.save(employee);
+        } else {
+            throw new Exception("Employee does not exist");
+        }
+    }
+
+    public void deleteEmployee(Integer e_id) {
+        employeeRepository.deleteById(e_id);
     }
 
     public List<ParkingSpot> getAllParkingSpots() {
@@ -62,9 +96,26 @@ public class DatabaseAccessService {
         parkingSpotRepository.findAll().forEach((parkingSpots::add));
         return parkingSpots;
     }
-    public ParkingSpot addNewParkingSpot(ParkingSpot parkingSpot) {
-        return parkingSpotRepository.save(parkingSpot);
+
+    public void deleteParkingSpot(Integer spot_id) {
+        parkingSpotRepository.deleteById(spot_id);
     }
+    public ParkingSpot addNewParkingSpot(ParkingSpot parkingSpot) throws Exception{
+        if(!parkingSpotRepository.existsById(parkingSpot.getSlot_id())) {
+            return parkingSpotRepository.save(parkingSpot);
+        } else {
+            throw new Exception("The parking slot with given id already exists");
+        }
+    }
+
+    public ParkingSpot updateParkingSpot(ParkingSpot parkingSpot) throws Exception{
+        if(parkingSpotRepository.existsById(parkingSpot.getSlot_id())) {
+            return parkingSpotRepository.save(parkingSpot);
+        } else {
+            throw new Exception("The parking slot with given id does not exist");
+        }
+    }
+
     public List<ParkingSpot> getAvailableParkingSpots() {
         return parkingSpotRepository.findAvailableParkingSpots();
     }
@@ -90,9 +141,24 @@ public class DatabaseAccessService {
         return vehicles;
     }
 
-    public Vehicle addNewVehicle(Vehicle vehicle) {
-        return vehicleRepository.save(vehicle);
+    public Vehicle addNewVehicle(Vehicle vehicle) throws Exception {
+        if(!vehicleRepository.existsById(vehicle.getNumber_plate())) {
+            return vehicleRepository.save(vehicle);
+        }
+        else {
+            throw new Exception("Vehicle already exists");
+        }
     }
+
+    public Vehicle updateVehicle(Vehicle vehicle) throws Exception {
+        if(vehicleRepository.existsById(vehicle.getNumber_plate())) {
+            return vehicleRepository.save(vehicle);
+        }
+        else {
+            throw new Exception("Vehicle does not exist");
+        }
+    }
+
 
     public List<VehicleType> getAllVehicleTypes() {
         List<VehicleType> vehicles = new ArrayList<>();
@@ -103,7 +169,9 @@ public class DatabaseAccessService {
     public VehicleType addNewVehicleType(VehicleType vehicleType) {
         return vehicleTypeRepository.save(vehicleType);
     }
-
+    public void deleteVehicle(String number_plate) {
+        vehicleRepository.deleteById(number_plate);
+    }
     public List<SlotAssignment> getAllSlotAssignments() {
         List<SlotAssignment> slotAssignments = new ArrayList<>();
         slotAssignmentRepository.findAll().forEach((slotAssignments::add));
