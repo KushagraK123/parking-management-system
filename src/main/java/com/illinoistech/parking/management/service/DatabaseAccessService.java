@@ -183,7 +183,6 @@ public class DatabaseAccessService {
 
     @Transactional
     public void releaseSpot(Integer slotAssignmentId) throws Exception {
-        //TODO Make this as a transaction;
         if(slotAssignmentRepository.findById(slotAssignmentId).isPresent()) {
             SlotAssignment slotAssignment = slotAssignmentRepository.findById(slotAssignmentId).get();
             Vehicle vehicle = vehicleRepository.findById(slotAssignment.getNumber_plate()).orElseThrow();

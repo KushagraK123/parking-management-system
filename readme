@@ -1,0 +1,14 @@
+Parking Management System
+An application to manage parking lots, which allows to input or modify the layout of parking slots, where we can add or manage customers
+and employees and vehicles, invoices are automatically generated once a parking slot is created
+
+
+Requirements to run the application
+Java 17
+Maven
+
+Run
+ParkingManagementSystem.class
+
+application.properties
+db connectivity settings(url and password) are mentioned in application.properties

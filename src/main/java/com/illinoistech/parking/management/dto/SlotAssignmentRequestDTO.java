@@ -4,6 +4,9 @@ package com.illinoistech.parking.management.dto;
 import com.illinoistech.parking.management.entity.SlotAssignment;
 import lombok.*;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,6 +27,7 @@ public class SlotAssignmentRequestDTO {
                 .slot_id(slotAssignmentRequestDTO.slot_id)
                 .number_plate(slotAssignmentRequestDTO.number_plate)
                 .cust_id(slotAssignmentRequestDTO.cust_id)
+                .timeIssued(Timestamp.from(Instant.now()))
                 .e_id(slotAssignmentRequestDTO.e_id).build();
     }
 
