@@ -1,6 +1,15 @@
 Parking Management System
-An application to manage parking lots, which allows to input or modify the layout of parking slots, where we can add or manage customers
-and employees and vehicles, invoices are automatically generated once a parking slot is created
+An application to manage parking lots, which allows to input or modify the layout of parking slots,
+where we can add or manage customers and employees and vehicles, invoices are automatically generated
+once a parking slot is created.
+
+A variety of queries can be executed on the invoices table to get, the insights of average invoice
+amount, customer with highest sum of the invoices, vehicle type which is the most frequent,
+and much more.
+
+
+This Application follows JavaEE Design Pattern, and uses Swagger-UI to run and test,
+all the available APIs and queries
 
 
 Requirements to run the application

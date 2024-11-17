@@ -27,7 +27,7 @@ public class ParkingSpotController {
     }
 
     @GetMapping("/availableSpots")
-    public List<ParkingSpot> getAllAvailableParkingSpots() {
+    public List<Object> getAllAvailableParkingSpots() {
         return databaseAccessService.getAvailableParkingSpots();
     }
 

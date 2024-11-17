@@ -116,7 +116,7 @@ public class DatabaseAccessService {
         }
     }
 
-    public List<ParkingSpot> getAvailableParkingSpots() {
+    public List<Object> getAvailableParkingSpots() {
         return parkingSpotRepository.findAvailableParkingSpots();
     }
     public List<ParkingSpot> getUsedParkingSpots() {
@@ -217,6 +217,24 @@ public class DatabaseAccessService {
         List<Invoice> invoices = new ArrayList<>();
         invoiceRepository.findAll().forEach((invoices::add));
         return invoices;
+    }
+
+    public List<Object> getRevenueByVehicleType() {
+        return invoiceRepository.getRevenueByVehicleType();
+    }
+
+    public List<Object> getRevenueByCustomers() {
+        return invoiceRepository.getRevenueByCustomers();
+    }
+
+    public Object getAverageInvoiceAmount() {
+        return invoiceRepository.getAverageInvoiceAmount();
+    }
+
+    public List<Object> getSumOfInvoicesByNumberPlate() { return invoiceRepository.getSumOfInvoicesByNumberPlate(); }
+
+    public  List<Object> getAllCustomersWhoseInvoicesSumIsMoreThanAmount(int amount) {
+        return invoiceRepository.getAllCustomersWhoseInvoicesSumIsMoreThanAmount(amount);
     }
 
 }

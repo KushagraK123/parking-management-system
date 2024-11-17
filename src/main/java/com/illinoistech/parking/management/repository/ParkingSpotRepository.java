@@ -13,6 +13,9 @@ public interface ParkingSpotRepository extends CrudRepository<ParkingSpot, Integ
     @Query(value = "SELECT * FROM parking_spot WHERE slot_id IN (SELECT slot_id FROM slot_assignment)", nativeQuery = true)
     List<ParkingSpot> findUsedParkingSpots();
 
-    @Query(value = "SELECT * FROM parking_spot WHERE slot_id NOT IN (SELECT slot_id FROM slot_assignment)", nativeQuery = true)
-    List<ParkingSpot> findAvailableParkingSpots();
+    @Query(value = """
+            SELECT slot_id FROM parking_garage.parking_spot EXCEPT\s
+            SELECT slot_id FROM parking_garage.slot_assignment
+            """, nativeQuery = true)
+    List<Object> findAvailableParkingSpots();
 }

@@ -20,4 +20,31 @@ public class InvoiceController {
         return databaseAccessService.getAllInvoices();
     }
 
+    @GetMapping("/revenueByVehicle")
+    List<Object> getRevenueByVehicleType() {
+        return databaseAccessService.getRevenueByVehicleType();
+    }
+
+    @GetMapping("/revenueByCustomer")
+    Object getRevenueByCustomer() {
+        return databaseAccessService.getRevenueByCustomers();
+    }
+
+    @GetMapping("/averageInvoiceAmount")
+    Object getAverageInvoiceAmount() {
+        return databaseAccessService.getAverageInvoiceAmount();
+    }
+
+    @GetMapping("/sumOfInvoiceByNumberPlate")
+    List<Object> getSumOfInvoicesByNumberPlate() {
+        return databaseAccessService.getSumOfInvoicesByNumberPlate();
+    }
+
+    @GetMapping("/getAllCustomersWhoseInvoicesSumIsMoreThanAmount")
+    List<Object> getAllCustomersWhoseInvoicesSumIsMoreThanAmount(Integer amount) {
+        return databaseAccessService.getAllCustomersWhoseInvoicesSumIsMoreThanAmount(amount);
+    }
+
+
+
 }
