@@ -11,6 +11,9 @@ and much more.
 This Application follows JavaEE Design Pattern, and uses Swagger-UI to run and test,
 all the available APIs and queries
 
+This project utilizes software system architecture patterns like state pattern, factory pattern, startegy pattern, 
+Model Driven Architecture for an Extended Finite State Machine
+
 
 Requirements to run the application
 Java 17
